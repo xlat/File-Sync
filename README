@@ -1,17 +1,17 @@
-This is version 0.04 of the Perl 5 File::Sync module.
+This is version 0.05 of the Perl 5 File::Sync module.
+
+>>> The only change since version 0.04 is the removal of the last test
+>>> in t/02_error.t.  It turns out that this was a test for Linux.
 
 It provides Perl interfaces to the Unix sync(2) and POSIX.1b fsync(2)
 system calls. The fsync() call is needed for putting messages into
-qmail maildirs, and sync() is included for completeness.  Older
-versions were never released.
+qmail maildirs, and sync() is included for completeness.
 
 You will need at least Perl 5.003 to use this module.  5.002 might
 work but has not been tested.  You will also need a C compiler for the
 XS part of the module.
 
-This is a beta release.  I don't see what features I could add at this
-stage, so I probably won't add any.  When it's been stable for a
-while, and if it has actually got some use, I may release 1.0.
+----------
 
 To install the module, enter these commands:
 
@@ -20,11 +20,35 @@ To install the module, enter these commands:
     make test
     make install
 
+----------
+
+For version 0.04, I wrote the following:
+
+> This is a beta release.  I don't see what features I could add at this
+> stage, so I probably won't add any.  When it's been stable for a
+> while, and if it has actually got some use, I may release 1.0.
+
+It now appears that File::Sync will become obsolete.  When this
+happens, the final version of File::Sync will be a wrapper around the
+new functions.
+
+There are two ways I can see this becoming obsolete:
+
+ 1) fsync() moves into IO::Handle where it belongs, and I move sync()
+    into Filesys::Sync.
+
+ 2) IO::Handle doesn't look like it will ever get fsync(), so I move
+    fsync() into IO::Sync and sync() into Filesys::Sync.
+
+----------
+
 Please send any bugs and/or ideas to Carey Evans at
 <c.evans@clear.net.nz>.  Is there anything that can be done to make
 this module work like the POSIX fsync() call on non-POSIX machines,
 for example?  Is there any way to test whether the fsync() call has
 actually happened in the tests?
+
+Thanks to everyone who reported the bug in t/02_error.t.
 
 All files contained in this installation are copyright © 1996,1997
 Carey Evans except for parts from the Perl distribution.  All rights

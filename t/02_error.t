@@ -2,7 +2,7 @@
 
 ######################### We start with some black magic to print on failure.
 
-BEGIN { $| = 1; print "1..9\n"; }
+BEGIN { $| = 1; print "1..8\n"; }
 END {print "not ok 1\n" unless $loaded;}
 use File::Sync qw(fsync);
 use FileHandle;
@@ -54,5 +54,6 @@ File::Sync::fsync_fd($fd) && print 'not '; print "ok 7\n";
 ($! == EBADF) || print 'not '; print "ok 8\n";
 
 # Try fsync on a tty, make sure it fails.
-open TTY, '> /dev/tty' || die;
-fsync(\*TTY) && print 'not '; print "ok 9\n";
+# >>> Oops!  Turns out this is a test for Linux.
+#open TTY, '> /dev/tty' || die;
+#fsync(\*TTY) && print 'not '; print "ok 9\n";
