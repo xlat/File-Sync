@@ -1,0 +1,9 @@
+Changes
+MANIFEST
+Makefile.PL
+README
+Sync.pm
+Sync.xs
+t/01_fsync.t
+t/02_error.t
+t/03_sync.t

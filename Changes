@@ -1,0 +1,19 @@
+Revision history for Perl extension File::Sync.
+
+0.04  Sun, 16 Feb 1997 17:04:10 +1300
+	- Functions are *NOT* exported by default any more.  Updated
+	  documentation and tests accordingly.
+
+0.03  Fri Jan 24 21:55:00 1997
+	- Revamped test scripts and documentation.
+	- Added usage check (number of args) to fsync().
+	- Aliases in FileHandle and IO::Handle for fsync method.
+
+0.02  Mon Dec 16 23:30:00 1996
+	- Sync.xs now uses XSRETURN_UNDEF, XSRETURN_YES.
+	- test.pl checks for correct behaviour on errors.
+	- Added README ready for distribution.
+
+0.01  Mon Nov 25 20:19:12 1996
+	- original version; created by h2xs 1.16
+
