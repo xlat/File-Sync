@@ -23,7 +23,7 @@ use Carp;
 	fsync
 	fsync_fd
 );
-$VERSION = '0.05';
+$VERSION = '0.06';
 
 bootstrap File::Sync $VERSION;
 

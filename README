@@ -1,7 +1,7 @@
-This is version 0.05 of the Perl 5 File::Sync module.
+This is version 0.06 of the Perl 5 File::Sync module.
 
->>> The only change since version 0.04 is the removal of the last test
->>> in t/02_error.t.  It turns out that this was a test for Linux.
+>>> The only change since version 0.05 is the addition of a test
+>>> for OS/2, and not using sync() in this case.
 
 It provides Perl interfaces to the Unix sync(2) and POSIX.1b fsync(2)
 system calls. The fsync() call is needed for putting messages into
@@ -22,23 +22,9 @@ To install the module, enter these commands:
 
 ----------
 
-For version 0.04, I wrote the following:
-
-> This is a beta release.  I don't see what features I could add at this
-> stage, so I probably won't add any.  When it's been stable for a
-> while, and if it has actually got some use, I may release 1.0.
-
-It now appears that File::Sync will become obsolete.  When this
-happens, the final version of File::Sync will be a wrapper around the
-new functions.
-
-There are two ways I can see this becoming obsolete:
-
- 1) fsync() moves into IO::Handle where it belongs, and I move sync()
-    into Filesys::Sync.
-
- 2) IO::Handle doesn't look like it will ever get fsync(), so I move
-    fsync() into IO::Sync and sync() into Filesys::Sync.
+The File::Sync::fsync subroutine will be replaced in the future by the
+IO::Handle->sync method.  File::Sync will still exist but only as a
+wrapper around this method.  sync() may move into Filesys::Sync.
 
 ----------
 
@@ -50,9 +36,15 @@ actually happened in the tests?
 
 Thanks to everyone who reported the bug in t/02_error.t.
 
+Thanks to Eric Veldhuyzen for letting me know about sync() not
+existing in OS/2.
+
 All files contained in this installation are copyright © 1996,1997
 Carey Evans except for parts from the Perl distribution.  All rights
 reserved.
 
 This module is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.
+
+-- 
+Carey Evans, <c.evans@clear.net.nz>, 10 August 1997.

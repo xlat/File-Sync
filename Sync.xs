@@ -1,6 +1,6 @@
 /* File::Sync.xs
  *
- * Copyright © 1996 Carey Evans.  All rights reserved.  This module is
+ * Copyright © 1996,1997 Carey Evans.  All rights reserved.  This module is
  * free software; you can redistribute it and/or modify it under the same
  * terms as Perl itself. */
 
@@ -15,6 +15,13 @@ extern "C" {
 #endif
 
 #include <unistd.h>
+
+#ifndef HAVE_SYNC
+int sync()
+{
+    return 0;
+}
+#endif
 
 MODULE = File::Sync		PACKAGE = File::Sync
 
