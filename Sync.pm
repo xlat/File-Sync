@@ -23,7 +23,7 @@ use Carp;
 	fsync
 	fsync_fd
 );
-$VERSION = '0.07';
+$VERSION = '0.08';
 
 bootstrap File::Sync $VERSION;
 
@@ -49,14 +49,15 @@ File::Sync - Perl access to fsync() and sync() function calls
 =head1 SYNOPSIS
 
   use File::Sync qw(fsync sync);
-  fsync(FILEHANDLE) or die "fsync: $!";
+  fsync(\*FILEHANDLE) or die "fsync: $!";
   sync();
-  
+
+  use File::Sync qw(fsync);
   use IO::File;
   $fh = IO::File->new("> /tmp/foo") 
       or die "new IO::File: $!";
   ...
-  $fh->fsync() or die "fsync: $!";
+  fsync($fh) or die "fsync: $!";
 
 =head1 DESCRIPTION
 
