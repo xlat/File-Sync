@@ -1,6 +1,6 @@
 # File::Sync.pm
 #
-# Copyright © 1997 Carey Evans.  All rights reserved.  This module is
+# Copyright © 1997,1999 Carey Evans.  All rights reserved.  This module is
 # free software; you can redistribute it and/or modify it under the same
 # terms as Perl itself.
 
@@ -23,7 +23,7 @@ use Carp;
 	fsync
 	fsync_fd
 );
-$VERSION = '0.06';
+$VERSION = '0.07';
 
 bootstrap File::Sync $VERSION;
 

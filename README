@@ -1,7 +1,4 @@
-This is version 0.06 of the Perl 5 File::Sync module.
-
->>> The only change since version 0.05 is the addition of a test
->>> for OS/2, and not using sync() in this case.
+This is version 0.07 of the Perl 5 File::Sync module.
 
 It provides Perl interfaces to the Unix sync(2) and POSIX.1b fsync(2)
 system calls. The fsync() call is needed for putting messages into
@@ -11,6 +8,9 @@ You will need at least Perl 5.003 to use this module.  5.002 might
 work but has not been tested.  You will also need a C compiler for the
 XS part of the module.
 
+>>> The only change since version 0.06 is the removal of one of the
+>>> tests, which fails on Perl 5.005.  The actual code is unchanged.
+
 ----------
 
 To install the module, enter these commands:
@@ -19,12 +19,6 @@ To install the module, enter these commands:
     make
     make test
     make install
-
-----------
-
-The File::Sync::fsync subroutine will be replaced in the future by the
-IO::Handle->sync method.  File::Sync will still exist but only as a
-wrapper around this method.  sync() may move into Filesys::Sync.
 
 ----------
 
@@ -39,7 +33,7 @@ Thanks to everyone who reported the bug in t/02_error.t.
 Thanks to Eric Veldhuyzen for letting me know about sync() not
 existing in OS/2.
 
-All files contained in this installation are copyright © 1996,1997
+All files contained in this installation are copyright © 1996,1997,1999
 Carey Evans except for parts from the Perl distribution.  All rights
 reserved.
 
@@ -47,4 +41,4 @@ This module is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.
 
 -- 
-Carey Evans, <c.evans@clear.net.nz>, 10 August 1997.
+Carey Evans, <c.evans@clear.net.nz>, 19 July 1999.
