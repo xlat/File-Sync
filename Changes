@@ -1,5 +1,12 @@
 Revision history for Perl extension File::Sync.
 
+0.09  Sun, 28 Nov 1999 15:43:38 +1300
+	- Fixed my code so that bare glob refs _do_ work with Perl 5.005.
+
+0.08  Sat, 20 Nov 1999 18:26:20 +1300
+	- Updated synopsis to remove bare glob ref from example, that
+	  doesn't work any more with Perl 5.005.
+
 0.07  Mon, 19 Jul 1999 22:01:06 +1200
 	- Perl 5.005 `make test' fails on fsync(TEST), so this test
 	  has been removed from t/01_fsync.t.

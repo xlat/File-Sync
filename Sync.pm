@@ -14,6 +14,7 @@ require DynaLoader;
 require AutoLoader;
 
 use Carp;
+use Symbol qw(qualify_to_ref);
 
 @ISA = qw(Exporter DynaLoader);
 # Items to export into callers namespace by default.
@@ -23,7 +24,7 @@ use Carp;
 	fsync
 	fsync_fd
 );
-$VERSION = '0.08';
+$VERSION = '0.09';
 
 bootstrap File::Sync $VERSION;
 
@@ -33,7 +34,7 @@ bootstrap File::Sync $VERSION;
 sub fsync(*) {
     @_ == 1 or croak "usage: fsync FILEHANDLE";
 
-    fsync_fd(fileno($_[0]));
+    fsync_fd(fileno(qualify_to_ref($_[0], caller())));
 }
 
 # Make fsync a method of IO::Handle and FileHandle.

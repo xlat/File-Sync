@@ -8,8 +8,8 @@ You will need at least Perl 5.003 to use this module.  5.002 might
 work but has not been tested.  You will also need a C compiler for the
 XS part of the module.
 
->>> The only change since version 0.06 is the removal of one of the
->>> tests, which fails on Perl 5.005.  The actual code is unchanged.
+>>> For verson 0.09, the fsync() code has been fixed to work properly
+>>> with glob names as file handles in Perl 5.005.
 
 ----------
 
@@ -33,6 +33,9 @@ Thanks to everyone who reported the bug in t/02_error.t.
 Thanks to Eric Veldhuyzen for letting me know about sync() not
 existing in OS/2.
 
+Thanks to David Muir Sharnoff for getting me to actually work out what
+was going on and fix my code.
+
 All files contained in this installation are copyright © 1996,1997,1999
 Carey Evans except for parts from the Perl distribution.  All rights
 reserved.
@@ -41,4 +44,4 @@ This module is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.
 
 -- 
-Carey Evans, <c.evans@clear.net.nz>, 19 July 1999.
+Carey Evans, <c.evans@clear.net.nz>, 28 November 1999.
