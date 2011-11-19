@@ -23,6 +23,14 @@ int sync()
 }
 #endif
 
+#ifndef HAVE_FDATASYNC
+int fdatasync(int fh)
+{
+    croak("skipping unsupported fdatasync() call - you might want to use fsync() instead");
+    return 0;
+}
+#endif
+
 MODULE = File::Sync		PACKAGE = File::Sync
 
 PROTOTYPES:	ENABLE
@@ -37,4 +45,12 @@ fsync_fd(fd)
     PROTOTYPE:		$
     CODE:
 	if (fsync(fd) == -1) XSRETURN_UNDEF;
+	else XSRETURN_YES;
+
+SV*
+fdatasync_fd(fd)
+	int		fd
+    PROTOTYPE:		$
+    CODE:
+	if (fdatasync(fd) == -1) XSRETURN_UNDEF;
 	else XSRETURN_YES;

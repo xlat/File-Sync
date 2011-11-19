@@ -21,10 +21,12 @@ use Symbol qw(qualify_to_ref);
 @EXPORT = ();
 @EXPORT_OK = qw(
 	sync
+   fdatasync
 	fsync
+   fdatasync_fd
 	fsync_fd
 );
-$VERSION = '0.09';
+$VERSION = '0.10';
 
 bootstrap File::Sync $VERSION;
 
@@ -35,6 +37,12 @@ sub fsync(*) {
     @_ == 1 or croak "usage: fsync FILEHANDLE";
 
     fsync_fd(fileno(qualify_to_ref($_[0], caller())));
+}
+
+sub fdatasync(*) {
+    @_ == 1 or croak "usage: fdatasync FILEHANDLE";
+
+    fdatasync_fd(fileno(qualify_to_ref($_[0], caller())));
 }
 
 # Make fsync a method of IO::Handle and FileHandle.
@@ -60,11 +68,17 @@ File::Sync - Perl access to fsync() and sync() function calls
   ...
   fsync($fh) or die "fsync: $!";
 
+and if fdatasync is available on your system:
+
+  fdatasync($fh) or die "fdatasync: $!";
+
 =head1 DESCRIPTION
 
 The fsync() function takes a Perl file handle as its only argument, and
 passes its fileno() to the C function fsync().  It returns I<undef> on
-failure, or I<true> on success.
+failure, or I<true> on success. fdatasync() is identical in return value,
+but it calls C fdatasync() instead of fsync(), synchronizing only the
+data in the file, not the metadata.
 
 The fsync_fd() function is used internally by fsync(); it takes a file
 descriptor as its only argument.
