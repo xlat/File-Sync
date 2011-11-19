@@ -26,7 +26,7 @@ use Symbol qw(qualify_to_ref);
    fdatasync_fd
 	fsync_fd
 );
-$VERSION = '0.10';
+$VERSION = '0.11';
 
 bootstrap File::Sync $VERSION;
 
@@ -45,8 +45,9 @@ sub fdatasync(*) {
     fdatasync_fd(fileno(qualify_to_ref($_[0], caller())));
 }
 
-# Make fsync a method of IO::Handle and FileHandle.
-*IO::Handle::fsync = *FileHandle::fsync = \&fsync;
+## Make fsync available as a method of FileHandle
+*FileHandle::fsync = \&fsync;
+# note: we no longer clobber IO::Handle::fsync. see POD for more.
 
 1;
 __END__
@@ -58,19 +59,18 @@ File::Sync - Perl access to fsync() and sync() function calls
 =head1 SYNOPSIS
 
   use File::Sync qw(fsync sync);
-  fsync(\*FILEHANDLE) or die "fsync: $!";
   sync();
+  fsync(\*FILEHANDLE) or die "fsync: $!";
+  # and if fdatasync() is available on your system:
+  fdatasync($fh) or die "fdatasync: $!";
 
   use File::Sync qw(fsync);
-  use IO::File;
-  $fh = IO::File->new("> /tmp/foo") 
-      or die "new IO::File: $!";
+  use FileHandle;
+  $fh = new FileHandle("> /tmp/foo") 
+      or die "new FileHandle: $!";
   ...
-  fsync($fh) or die "fsync: $!";
+  $fh->fsync() or die "fsync: $!";
 
-and if fdatasync is available on your system:
-
-  fdatasync($fh) or die "fdatasync: $!";
 
 =head1 DESCRIPTION
 
@@ -85,9 +85,11 @@ descriptor as its only argument.
 
 The sync() function is identical to the C function sync().
 
-This module does B<not> export any methods by default, but fsync() is
-made available as a method of the I<FileHandle> and I<IO::Handle>
-classes.
+This module does B<not> export any methods by default, but fsync()
+is made available as a method of the I<FileHandle> class. Note carefully
+that as of 0.11, we no longer clobber anything in I<IO::Handle>. You
+can replace any calls to IO::Handle::fsync() with IO::Handle::sync():
+  https://rt.cpan.org/Public/Bug/Display.html?id=50418
 
 =head1 NOTES
 
