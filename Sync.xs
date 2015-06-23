@@ -1,6 +1,6 @@
 /* File::Sync.xs
  *
- * Copyright © 1996,1997 Carey Evans.  All rights reserved.  This module is
+ * Copyright É 1996,1997 Carey Evans.  All rights reserved.  This module is
  * free software; you can redistribute it and/or modify it under the same
  * terms as Perl itself. */
 
@@ -15,6 +15,18 @@ extern "C" {
 #endif
 
 #include <unistd.h>
+
+//TODO: detect windows system, or link with a cygwin dll and try to call sync/fsync
+#ifndef HAVE_SYNC_N_FSYNC
+int fsync(int fd){
+	return 0;
+}
+
+int sync()
+{
+    return 0;
+}
+#endif
 
 #ifndef HAVE_SYNC
 int sync()
